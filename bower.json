@@ -1,0 +1,23 @@
+{
+  "name": "jouley-player",
+  "description": "An audio player for the web",
+  "main": "jouley-player.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "jouley-controls": "*",
+    "iron-icon": "^1.0.9",
+    "jouley-progress": "*",
+    "jouley-player-panel": "*",
+    "id3js": "VandeurenGlenn/id3#master",
+    "jouley-song-loader-behavior": "^0.1.0",
+    "jouley-song-info": "*",
+    "jouley-cover": "^0.1.0",
+    "paper-spinner": "^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
