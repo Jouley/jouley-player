@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../jouley-icons/jouley-icons.html">
+
+<dom-module id="jouley-control-button">
+  <template>
+    <style>
+      :host {
+        display: block;
+        pointer-events: auto;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.74);
+      }
+      :host([pressed]) {
+        color: rgba(0, 0, 0, 0.64);
+      }
+      :host([disabled]) {
+        color: rgba(0, 0, 0, 0.38);
+        pointer-events: none;
+      }
+    </style>
+    <iron-icon icon="jouley-icons:[[control]]" on-tap="_fireEvent" on-down="_onDown" on-up="_onUp"></iron-icon>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'jouley-control-button',
+
+      properties: {
+        control: String,
+        pressed: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        disabled: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      set _icon(value) {
+        Polymer.dom(this._iconElement).icon = value;
+      },
+
+      set control(value) {
+        if (value) {
+          this._icon = value;
+        }
+      },
+
+      get _iconElement() {
+        return Polymer.dom(this.root).querySelector('iron-icon');
+      },
+
+      _onDown: function() {
+        this.pressed = true;
+      },
+
+      _onUp: function() {
+        this.pressed = false;
+      },
+
+      /**
+       * Fires the 'control-change' event
+       *
+       * @returns the value of this.control
+       */
+      _fireEvent: function() {
+        this.fire('control-change', this.control);
+      }
+
+    });
+  </script>
+</dom-module>

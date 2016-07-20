@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>jouley-error-behavior test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../demo/demo-el.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <demo-el></demo-el>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('jouley-error-behavior', function() {
+        let element = fixture('basic');
+
+        test('instantiating the element works', function() {
+          assert.equal(element.is, 'demo-el');
+        });
+
+        test('instantiating the behavior works', function() {
+          assert.deepEqual(element.behaviors[0], window.Jouley.ErrorBehavior);
+        });
+
+      });
+    </script>
+  </body>
+</html>

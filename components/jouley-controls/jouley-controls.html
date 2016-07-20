@@ -1,0 +1,115 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jouley-control-button/jouley-control-button.html">
+
+<dom-module id="jouley-controls">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      :host:not([controls]) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      :host([disabled]) jouley-control-button {
+        color: rgba(0, 0, 0, 0.38);
+        pointer-events: none;
+      }
+    </style>
+
+    <!-- Previous -->
+    <jouley-control-button control="previous" disabled$="[[!songLoaded]]"></jouley-control-button>
+    <!-- Play -->
+    <template is="dom-if" if="[[!_computePlaying(playing, paused)]]">
+      <jouley-control-button control="play"></jouley-control-button>
+    </template>
+    <!-- Pause -->
+    <template is="dom-if" if="[[_computePlaying(playing, paused)]]">
+      <jouley-control-button control="pause"></jouley-control-button>
+    </template>
+    <!-- Next -->
+    <jouley-control-button control="next" disabled$="[[!nextSong]]"></jouley-control-button>
+    <!-- Stop -->
+    <template is="dom-if" if="[[_computeShowStopButton(showAll, stop)]]">
+      <jouley-control-button control="stop"></jouley-control-button>
+    </template>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'jouley-controls',
+
+        properties: {
+
+          /**
+           * whether or not the controls are shown
+           */
+          controls: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false
+          },
+
+          /**
+           * whether or not audio is playing
+           */
+          playing: {
+            type: Boolean,
+            value: false
+          },
+
+          /**
+           * whether or not audio is playing
+           */
+          paused: {
+            type: Boolean,
+            value: false
+          },
+
+          stop: {
+            type: Boolean,
+            value: false
+          },
+
+          showAll: {
+            type: Boolean,
+            value: false
+          },
+
+          songLoaded: {
+            type: Boolean,
+            value: false
+          },
+
+          nextSong: {
+            type: Boolean,
+            value: false
+          },
+
+          disabled: {
+            type: Boolean,
+            value: false
+          }
+        },
+
+        _computePlaying: function(playing, paused) {
+          if (paused || !playing) {
+            return false;
+          }
+          return true;
+        },
+
+        _computeShowStopButton: function(all, stop) {
+          if (all || stop) {
+            return true;
+          }
+          return false;
+        }
+      });
+    })();
+  </script>
+</dom-module>

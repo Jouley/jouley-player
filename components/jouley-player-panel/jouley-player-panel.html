@@ -1,0 +1,171 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="jouley-player-panel">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+      }
+      ::content jouley-controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-self: center;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .bottom-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 4px 0;
+      }
+
+      /* lite theme */
+      :host([lite]) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      :host([library-player]) ::content jouley-progress {
+        padding: 0 8px;
+      }
+
+      /* library-player theme */
+      :host([library-player]) {
+        display: flex;
+        flex-direction: row;
+      }
+      :host([library-player]) .container {
+        display: flex;
+        flex-direction: column;
+      }
+      :host([library-player]) ::content jouley-controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-self: center;
+        height: 100%;
+        padding: 0;
+      }
+      :host([library-player]) ::content jouley-cover,
+      :host([library-player]) ::content jouley-cover ::content iron-image {
+        min-width: 92px;
+        width: 92px;
+        height: 92px;
+        min-height: 92px;
+        padding: 0;
+      }
+      :host([library-player]) ::content jouley-song-info {
+        position: absolute;
+      }
+      .flex {
+        flex: 1;
+      }
+      .center,
+      .center-center {
+        align-items: center;
+      }
+      .center-center {
+        align-self: center;
+      }
+      .horizontal {
+        display: flex;
+        flex-direction: row;
+      }
+      .vertical {
+        display: flex;
+        flex-direction: column;
+      }
+      .panel {
+        padding: 0.4em 0.6em;
+        width: 100%;
+      }
+      .horizontal-panel {
+        height: 100%;
+      }
+    </style>
+
+    <template is="dom-if" if="[[_computeBasicPlayer(lite, libraryPlayer)]]">
+      <div class="horizontal">
+        <content select="jouley-cover"></content>
+        <template is="dom-if" if="[[!libraryPlayer]]">
+          <content select="jouley-song-info"></content>
+        </template>
+      </div>
+    </template>
+    <template is="dom-if" if="[[lite]]">
+      <content select="jouley-controls"></content>
+      <content select="jouley-progress-bar"></content>
+    </template>
+
+    <!-- basic template -->
+    <template is="dom-if" if="[[_computeBasicPlayer(lite, libraryPlayer)]]">
+      <span class="container">
+        <content select="jouley-progress-bar"></content>
+        <div class="horizontal horizontal-panel">
+          <content select="jouley-song-info"></content>
+          <div class="vertical panel">
+            <template is="dom-if" if="[[libraryPlayer]]">
+              <div class="horizontal center">
+                <span class="flex"></span>
+                <content select="jouley-progress"></content>
+              </div>
+              <div class="horizontal center-center horizontal-panel">
+                <content select="jouley-controls"></content>
+              </div>
+            </template>
+
+            <template is="dom-if" if="[[!libraryPlayer]]">
+              <div class="horizontal center">
+                <content select="jouley-controls"></content>
+                <content select="jouley-progress"></content>
+              </div>
+            </template>
+          </div>
+        </div>
+      </span>
+    </template>    
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'jouley-player-panel',
+
+      properties: {
+        lite: {
+          type: Boolean,
+          value: false
+        },
+
+        libraryPlayer: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      get _controlsElement() {
+        return Polymer.dom(this.root).querySelector('jouley-controls');
+      },
+
+      set lite(value) {
+        return this._controlsElement.lite = value;
+      },
+
+      _computeBasicPlayer: function(lite, libraryPlayer) {
+        if (!lite || libraryPlayer) {
+          return true;
+        }
+        return false;
+      }
+
+    });
+  </script>
+</dom-module>

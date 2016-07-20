@@ -1,0 +1,365 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../jouley-player-panel/jouley-player-panel.html">
+<link rel="import" href="../jouley-song-loader-behavior/jouley-song-loader-behavior.html">
+<link rel="import" href="../jouley-controls/jouley-controls.html">
+<link rel="import" href="../jouley-progress/jouley-progress.html">
+<link rel="import" href="../jouley-progress/jouley-progress-handler.html">
+<link rel="import" href="../jouley-progress/jouley-progress-bar.html">
+<link rel="import" href="../jouley-cover/jouley-cover.html">
+<link rel="import" href="../jouley-song-info/jouley-song-info.html">
+
+<!-- @demo demo/index.html -->
+<dom-module id="jouley-player">
+  <template>
+    <style>
+      :root {
+        --jouley-background-color: #fafafa;
+      }
+      :host {
+        display: block;
+        position: relative;
+        height: 100%;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      :host([library-player]), :host([lite]) {
+        width: 100%;
+      }
+      :host([lite]) {
+        padding: 6px;
+        box-sizing: border-box;
+      }
+      @media (min-width: 380px) {
+        :host([library-player]) {
+          min-width: 380px;
+        }
+      }
+    </style>
+    <audio src="[[src]]" autoplay="[[autoplay]]">
+      <p>Your browser does not support HTML5 audio.</p>
+    </audio>
+    <jouley-player-panel lite$="[[lite]]" library-player$="[[libraryPlayer]]">
+      <jouley-cover src="[[currentSong.cover]]" thumb$="[[libraryPlayer]]" loading="{{loading}}"></jouley-cover>
+      <jouley-song-info song="[[currentSong]]"></jouley-song-info>
+      <jouley-progress-bar value="[[progressOut]]" duration="[[durationOut]]"></jouley-progress-bar>
+      <jouley-progress value="[[progressOut]]" duration="[[durationOut]]" track-times="[[libraryPlayer]]"></jouley-progress>
+      <jouley-controls playing="[[playing]]" paused="[[paused]]" on-control-change="_controlHandler" disabled$="[[loading]]"></jouley-controls>
+    </jouley-player-panel>
+    <jouley-progress-handler progress-in="[[_currentTime]]" duration-in="[[_duration]]" duration-out="{{durationOut}}" progress-out="{{progressOut}}"></jouley-progress-handler>
+  </template>
+  <script>
+
+    function toDashes(str) {
+      return str.replace(/\s+/g, '-');
+    };
+    Polymer({
+
+      is: 'jouley-player',
+
+      behaviors: [Jouley.SongLoaderBehavior],
+
+      properties: {
+        /**
+         * The Song to play,
+         * Sets the source of the audio element
+         */
+        src: {
+          type: String,
+          observer: '__srcChanged__'
+        },
+
+        /**
+         * whether or not the audio should start playing as soon as it is loaded
+         */
+        autoplay: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * whether or not the controls are shown
+         */
+        lite: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        /**
+         * whether or not audio is playing
+         */
+        playing: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        nextSong: {
+          type: Object,
+          value: {}
+        },
+
+        _currentTime: {
+          type: Number,
+          value: 0
+        },
+
+        _counterDelay: {
+          type: Number,
+          value: 1000/60
+        },
+
+        libraryPlayer: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        options: {
+          type: Object,
+          value: function() {
+            return []
+          }
+        },
+
+        ratio: {
+          type: Number,
+          value: 5
+        },
+
+        loading: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      observers: [
+        '_optionsChanged(options.*)'
+      ],
+
+      get _progressElement() {
+        return Polymer.dom(this.root).querySelector('jouley-progress');
+      },
+
+      get _controlsElement() {
+        return Polymer.dom(this.root).querySelector('jouley-controls');
+      },
+
+      /**
+       * Fires 'jouley-state-change' event when 'playing' changes.
+       */
+      set playing(value) {
+        this.fire('jouley-state-change', {playing: value, song: this.src});
+      },
+
+      get _player() {
+        return Polymer.dom(this.root).querySelector('audio');
+      },
+
+      ready: function() {
+        this._player.onloadedmetadata = this._onMetadataLoaded.bind(this);
+        this._player.ontimeupdate =  this._onTimeUpdate.bind(this);
+        this._player.onloadstart = this._onLoadStart.bind(this);
+        this._player.onloadeddata = this._onLoad.bind(this);
+        this._player.onended = this._onEnded.bind(this);
+      },
+
+      _onEnded: function(event) {
+        this.pause();
+        if (!this.nextSong) {
+          this.stop();
+        }
+      },
+
+      _onLoadStart: function() {
+        this.loading = true;
+      },
+
+      _onLoad: function() {
+        this.loading = false;
+        URL.revokeObjectURL(this.src);
+      },
+
+      _onMetadataLoaded: function(event) {
+        this._duration = this._player.duration;
+      },
+
+      _onTimeUpdate: function(event) {
+        this._currentTime = this._player.currentTime;
+      },
+
+      __srcChanged__: function(src) {
+        if (this._isSupported(src)) {
+          if (fetch && URL.createObjectURL) {
+            var arrayBuffer;
+            return fetch(src).then(function(response) {
+              return response.blob();
+            }).then(function(response) {
+              this.getID3Tags(new File(new Array(response), src));
+              this._setupPlayer(URL.createObjectURL(response));
+            }.bind(this));
+          } else {
+            this._setupPlayer(src);
+          }
+        } else {
+          return this._fireError('unsupported file type!');
+        }
+      },
+
+      _isSupported: function(str) {
+        var ext = this._getExtension(str);
+        switch (ext) {
+          case 'mp3':
+          case 'm4a':
+            return true
+            break;
+        }
+        // TODO: add ogg support for supported browsers
+        return false;
+      },
+
+      _applyAllOptions: function(str) {
+        switch (str) {
+          case 'all':
+            if (this._progressElement) {
+              this._progressElement.showAll = true;
+            }
+            this._controlsElement.showAll = true;
+            break;
+          case 'all-progress':
+            if (this._progressElement) {
+              this._progressElement.showAll = true;
+            }
+            break;
+          case 'all-controls':
+          this._controlsElement.showAll = true;
+            break;
+        }
+      },
+
+      _optionsChanged: function(change) {
+        var opts = change.value;
+        if (typeof opts === 'string') {
+          return this._applyAllOptions(opts);
+        } else if (typeof opts === 'object') {
+          for (let obj of opts) {
+            for (let key of Object.keys(obj)) {
+              for (let opt of Object.keys(obj[key])) {
+                if (this['_' + key + 'Element']) {
+                  this['_' + key + 'Element'][opt] = obj[key][opt];
+                }
+              }
+            }
+          }
+        }
+      },
+
+
+      _setupPlayer: function(src) {
+        this._player.src = src;
+        this._currentTime = this._player.currentTime;
+      },
+
+      _getExtension: function(str) {
+        index = str.lastIndexOf('.');
+        return str.slice((index + 1));
+      },
+
+      /**
+       * Runs a control method (play, pause, etc...)
+       */
+      _controlHandler: function(event) {
+        this[event.detail]();
+      },
+
+
+      // TODO: create error-toast
+      /**
+       * Fires the 'jouley-player-error' event
+       */
+      _fireError: function(err) {
+        this.fire('jouley-player-error', err);
+      },
+
+      startCounter: function() {
+        var a = 0;
+        var now, before = new Date();
+
+        this.interval = setInterval(function() {
+          now = new Date();
+          var elapsedTime = (now.getTime() - before.getTime());
+          if(elapsedTime > this._counterDelay) {
+            //Recover the motion lost while inactive.
+            var time = elapsedTime / 1000;
+            requestAnimationFrame(function() {
+              setTimeout(function () {
+                this._applyChanges(time)
+              }.bind(this), this._counterDelay);
+            }.bind(this));
+          } else {
+            requestAnimationFrame(function() {
+              setTimeout(function () {
+                this._applyChanges(elapsedTime / 1000);
+              }.bind(this), this._counterDelay);
+            }.bind(this));
+          }
+          before = new Date();
+        }.bind(this), this._counterDelay);
+      },
+
+      _applyChanges: function(count) {
+        this._currentTime += count;
+      },
+
+      clearCounter: function() {
+        clearInterval(this.interval);
+      },
+
+      play: function() {
+        this.startCounter();
+        this._player.play()
+          .then(() => {
+            this.playing = true;
+            this.paused = false;
+          }).catch((err) => {
+            this._fireError(err);
+          });
+      },
+
+      pause: function() {
+        this.clearCounter();
+        try {
+          this._player.pause();
+          this.paused = true;
+        } catch (err) {
+          this._fireError(err);
+        }
+
+      },
+
+      stop: function() {
+        this.clearCounter();
+        try {
+          this.pause();
+          this._currentTime = 0;
+          this._player.currentTime = 0;
+          this.playing = false;
+          this.paused = false;
+        } catch (err) {
+          this._fireError(err);
+        }
+      },
+
+      previous: function() {
+        this.fire('load-previous-song');
+      },
+
+      next: function() {
+        this.fire('load-next-song');
+      }
+
+
+    });
+  </script>
+</dom-module>

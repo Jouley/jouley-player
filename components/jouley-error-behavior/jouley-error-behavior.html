@@ -1,0 +1,54 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+window.Jouley = window.Jouley || {};
+
+/**
+ * Behavior that handles "jouley-component" errors.
+ *
+ * @polymerBehavior
+ */
+Jouley.ErrorBehavior = {
+  properties: {
+    /**
+     * Custom prefix when firing the 'error-event',
+     * *overrides the default value of '_prefix'
+     */
+    prefix: String,
+
+
+    /**
+     * Prefix used when firing the 'error-event',
+     * defaults to 'instanceName-error'
+     */
+    _prefix: String
+  },
+
+  /**
+   * Sets '_prefix' to 'instanceName-error' by default,
+   * unless public 'prefix' is defined.
+   *
+   * @type {string}
+   */
+  set _for(value) {
+    this._prefix = this.prefix || value + '-error';
+  },
+
+  ready: function() {
+    this._for = this.is;
+  },
+
+  /**
+   * @event instanceName-error
+   * @param {string} error error message.
+   */
+
+  /**
+   * Fires 'instanceName-error' event
+   * @param {string} error error message.
+   */
+  fireError: function(error) {
+    this.fire(this._prefix, error);
+  }
+};
+</script>

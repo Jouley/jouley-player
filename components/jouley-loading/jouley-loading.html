@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+
+<dom-module id="jouley-loading">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 100;
+        background: var(--jouley-background-color);
+      }
+      :host([loading]) {
+        opacity: 1;
+      }
+      paper-spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        --paper-spinner-layer-1-color: #888;
+        --paper-spinner-layer-2-color: #777;
+      }
+    </style>
+    <paper-spinner active="[[loading]]"></paper-spinner>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'jouley-loading',
+        properties: {
+          loading: Boolean
+        }
+      });
+    })();
+  </script>
+</dom-module>

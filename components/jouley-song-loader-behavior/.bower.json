@@ -1,0 +1,26 @@
+{
+  "name": "jouley-song-loader-behavior",
+  "version": "0.1.0",
+  "main": "jouley-song-loader-behavior.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "jouley-error-behavior": "^0.1.0",
+    "id3js": "VandeurenGlenn/id3#master"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-song-loader-behavior",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "1b33bee5d229101c4ed24b75f8a17a6210b89dd5"
+  },
+  "_source": "https://github.com/Jouley/jouley-song-loader-behavior.git",
+  "_target": "^0.1.0",
+  "_originalSource": "jouley-song-loader-behavior"
+}

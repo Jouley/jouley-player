@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>jouley-cover test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../jouley-cover.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <jouley-cover></jouley-cover>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('jouley-cover', function() {
+        let element = fixture('basic');
+
+        test('instantiating the element works', function() {
+          assert.equal(element.is, 'jouley-cover');
+        });
+
+      });
+    </script>
+  </body>
+</html>

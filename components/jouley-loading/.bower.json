@@ -1,0 +1,25 @@
+{
+  "name": "jouley-loading",
+  "description": "Shows an spinner when loading",
+  "main": "jouley-loading.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-spinner": "^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-loading",
+  "_release": "06d6bc42b5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "06d6bc42b5e3c7801f5454cb6b3fcdc8797f3119"
+  },
+  "_source": "https://github.com/Jouley/jouley-loading.git",
+  "_target": "*",
+  "_originalSource": "jouley-loading"
+}

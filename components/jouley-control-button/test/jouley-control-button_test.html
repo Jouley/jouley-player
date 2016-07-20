@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>jouley-control-button test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../jouley-control-button.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <jouley-control-button control="play"></jouley-control-button>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('jouley-control-button', function() {
+        let element;
+
+        test('instantiating the element works', function() {
+          element = fixture('basic');
+          assert.equal(element.is, 'jouley-control-button');
+        });
+
+        test('checking if control is defined', function() {
+          assert.equal(element.control, 'play');
+        });
+
+        test('perform click test', function() {
+          element.addEventListener('control-change', () => {
+            done();
+          });
+          element.click();
+        });
+
+      });
+    </script>
+  </body>
+</html>

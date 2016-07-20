@@ -1,0 +1,25 @@
+{
+  "name": "jouley-progress",
+  "main": "jouley-progress.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-progress": "^1.0.9",
+    "jouley-error-behavior": "*"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-progress",
+  "_release": "8e13b585b3",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8e13b585b30e79b307cc26bc5743eeb7061a057e"
+  },
+  "_source": "https://github.com/Jouley/jouley-progress.git",
+  "_target": "*",
+  "_originalSource": "jouley-progress"
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>jouley-error-behavior demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="demo-el.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic jouley-error-behavior Demo</h3>
+      <demo-snippet>
+        <template>
+          <button type="button">Fire error</button>
+          <div class="list"></div>
+
+          <script>
+            var el = document.createElement('demo-el');
+            var btn = document.querySelector('button');
+            var list = document.querySelector('.list');
+
+            el.addEventListener('demo-el-error', function(e) {
+              var p = document.createElement('p');
+              p.innerText = e.detail;
+              list.appendChild(p);
+            });
+
+            btn.addEventListener('click', function() {
+              el.fireError('this is an error');
+            });
+          </script>
+        </template>
+
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

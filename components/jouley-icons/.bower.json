@@ -1,0 +1,25 @@
+{
+  "name": "jouley-icons",
+  "description": "Jouley&#39;s icons",
+  "main": "jouley-icons.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-iconset-svg": "^1.0.9"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-icons",
+  "_release": "076fd5ab7d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "076fd5ab7d84eecd346f9f188f720d6307d3b5b3"
+  },
+  "_source": "https://github.com/Jouley/jouley-icons.git",
+  "_target": "*",
+  "_originalSource": "jouley-icons"
+}

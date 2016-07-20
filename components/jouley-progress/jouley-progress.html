@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="jouley-progress">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 0 8px;
+      }
+    </style>
+
+    <template is="dom-if" if="[[_computeTrackTimes(showAll, trackTimes)]]">
+      <!-- progress -->
+      <span>[[_progress]]</span>
+
+      <span>/</span>
+      <!-- duartion -->
+      <span>[[_duration]]</span>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'jouley-progress',
+
+      properties: {
+
+        /**
+         * The current time of the song
+         */
+        value: Number,
+
+        /**
+         * The duration of the song
+         */
+        duration: Number,
+
+        trackTimes: {
+          type: Boolean,
+          value: false
+        },
+
+        showAll: {
+          type: Boolean,
+          value: false
+        },
+
+        _progress: Number,
+        _duration: Number
+      },
+
+      observers: [
+        '_progressUpdate(value)',
+        '_durationUpdate(duration)'
+      ],
+
+      // TODO: move to jouley-player-panel
+      _computeTrackTimes: function(all, trackTimes) {
+        if (all || trackTimes) {
+          return true;
+        }
+        return false;
+      },
+
+      _progressUpdate(value) {
+        this._progress = (value / 60).toFixed(2);
+      },
+
+      _durationUpdate(value) {
+        this._duration = (value / 60).toFixed(2);
+      }
+
+    });
+  </script>
+</dom-module>

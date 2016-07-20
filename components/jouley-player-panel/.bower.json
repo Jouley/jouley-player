@@ -1,0 +1,23 @@
+{
+  "name": "jouley-player-panel",
+  "main": "jouley-player-panel.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-player-panel",
+  "_release": "094b21ae6d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "094b21ae6d06830cace5c67f1394e79e9dae48de"
+  },
+  "_source": "https://github.com/Jouley/jouley-player-panel.git",
+  "_target": "*",
+  "_originalSource": "jouley-player-panel"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "jouley-controls",
+  "main": "jouley-controls.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "jouley-control-button": "*"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-controls",
+  "_release": "61a811cca6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "61a811cca6ed5a1eb6fb698b10bff726662b26aa"
+  },
+  "_source": "https://github.com/Jouley/jouley-controls.git",
+  "_target": "*",
+  "_originalSource": "jouley-controls"
+}

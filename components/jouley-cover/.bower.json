@@ -1,0 +1,26 @@
+{
+  "name": "jouley-cover",
+  "version": "0.1.0",
+  "main": "jouley-cover.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-image": "^1.2.3",
+    "jouley-loading": "*"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-cover",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "e3d50a06cf32ccb6b9d6d093f7edc49472fcf57a"
+  },
+  "_source": "https://github.com/Jouley/jouley-cover.git",
+  "_target": "^0.1.0",
+  "_originalSource": "jouley-cover"
+}

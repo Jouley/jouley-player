@@ -1,0 +1,23 @@
+{
+  "name": "jouley-song-info",
+  "main": "jouley-song-info.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/Jouley/jouley-song-info",
+  "_release": "8edd50ff73",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8edd50ff737a54c6cbfe465ee6f1d92e0f389b05"
+  },
+  "_source": "https://github.com/Jouley/jouley-song-info.git",
+  "_target": "*",
+  "_originalSource": "jouley-song-info"
+}

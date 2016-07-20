@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <title>jouley-player demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../jouley-player.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <style>
+      .library-player {
+        max-width: 460px !important;
+      }
+      @media (min-width: 640px) {
+        .centered {
+          max-width: 640px !important;
+        }
+      }
+    </style>
+    <div class="vertical-section-container centered">
+      <h3>Basic jouley-player Demo</h3>
+      <demo-snippet>
+        <template>
+          <jouley-player src="songs/M10S - Walk in the park.mp3"></jouley-player>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic jouley-player Demo (lite)</h3>
+      <demo-snippet>
+        <template>
+          <jouley-player src="songs/M10S - My style.mp3" lite></jouley-player>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered library-player">
+      <h3>Basic jouley-player Demo (libraryPlayer)</h3>
+      <demo-snippet>
+        <template>
+          <jouley-player src="songs/M10S - Ten Skies.mp3" library-player></jouley-player>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic jouley-player Demo (using options)</h3>
+      <h4>Being picky</h4>
+      <demo-snippet>
+        <template>
+          <jouley-player src="songs/M10S - Walk in the park.mp3" options='[{"progress": {"trackTimes": "true"}}]'></jouley-player>
+        </template>
+      </demo-snippet>
+
+      <h4>Using all options</h4>
+      <demo-snippet>
+        <template>
+          <jouley-player src="songs/M10S - My style.mp3" options="all"></jouley-player>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
