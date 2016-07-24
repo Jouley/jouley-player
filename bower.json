@@ -9,7 +9,7 @@
     "jouley-progress": "*",
     "jouley-player-panel": "*",
     "id3js": "VandeurenGlenn/id3#master",
-    "jouley-song-loader-behavior": "^0.1.0",
+    "jouley-song-loader-behavior": "^0.1.1",
     "jouley-song-info": "*",
     "jouley-cover": "^0.1.0",
     "paper-spinner": "^1.2.0"
